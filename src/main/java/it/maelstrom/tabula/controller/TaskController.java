@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping(EndpointConstants.TASK_BASE_URL)
 @Validated
@@ -38,14 +39,19 @@ public class TaskController {
         return ResponseEntity.ok().body(this.service.getAllTasks());
     }
 
-    @PatchMapping({"/{id}"})
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskResponse> getTask(@PathVariable(name = "id") @NotNull(message = "Task id is absent") Long id){
+        return ResponseEntity.ok().body(this.service.getTask(id));
+    }
+
+    @PatchMapping("/{id}")
     public void updateTask(
             @RequestBody @Valid TaskUpdateRequest request, @PathVariable(name = "id") @NotNull(message = "Task id is absent") Long id
     ) {
         this.service.updateTask(request, id);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable(name = "id") @NotNull(message = "Task id is absent") Long id) {
         this.service.deleteTask(id);
     }

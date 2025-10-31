@@ -36,11 +36,4 @@ public class CategoryController {
         return ResponseEntity.ok().body(this.service.getCategories());
     }
 
-    @DeleteMapping
-    public void deleteCategory(@RequestParam @NotNull(
-            message = "Category id is absent"
-    ) Long categoryId) {
-        this.service.deleteCategory(categoryId);
-    }
-
 }

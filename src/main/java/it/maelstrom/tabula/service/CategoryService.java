@@ -22,8 +22,8 @@ public class CategoryService {
 
     public List<CategoryResponse> getCategories() {
         List<Category> categories = this.repository.findAll();
-        if (categories.isEmpty())
-            throw MissingResourceException.builder().reason("No category found").build();
+
+
 
         return categories
                 .stream()
@@ -33,17 +33,6 @@ public class CategoryService {
                         .categoryName(category.getName())
                         .build()
                 ).toList();
-    }
-
-    @Transactional
-    public void deleteCategory(Long categoryId) {
-        Category category = repository.findById(categoryId).orElseThrow(() -> MissingResourceException
-                .builder()
-                .reason("No category found with id:" + categoryId)
-                .build()
-        );
-
-        this.repository.delete(category);
     }
 
 }
